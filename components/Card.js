@@ -40,6 +40,8 @@ const styles = StyleSheet.create({
         marginVertical: 10,
     },
     textInput: {
+        marginVertical: 20,
+        padding: 10,
         borderWidth: 1,
         width: '80%',
         borderColor: '#aa33dd'
