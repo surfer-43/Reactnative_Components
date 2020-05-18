@@ -8,24 +8,16 @@ import {
 } from 'react-native';
 
 const Card = (props) => {
+    console.log('looking for props.style: ', props);
     return (
-        <View style={styles.card}>
-            <Text>Pick a number... any number!</Text>
-            <TextInput style={styles.textInput}/>
-            <View style={styles.buttonContainer}>
-                <Button title='Reset' onPress={() => console.log('Reset was pressed')}/>
-                <Button title='Confirm' onPress={() => console.log('Confirm was pressed')}/>
-            </View>
-        </View>
+        <View style={{...styles.card, ...props.style}}>{props.children}</View>
     )
 } 
 
 const styles = StyleSheet.create({
     card: {
-        width: 250,
-        maxWidth: '60%',
+        marginVertical: 20,
         padding: 20,
-        alignItems: 'center',
         shadowColor: 'black',
         shadowOffset: {width: 0, height: 2},
         shadowRadius: 6,
@@ -33,24 +25,6 @@ const styles = StyleSheet.create({
         shadowOpacity: .26,
         backgroundColor: 'white',
         borderRadius: 10,
-        marginVertical: 20
-    },
-    title: {
-        fontSize: 20,
-        marginVertical: 10,
-    },
-    textInput: {
-        marginVertical: 20,
-        padding: 10,
-        borderWidth: 1,
-        width: '80%',
-        borderColor: '#aa33dd'
-    },
-    buttonContainer: {
-        flexDirection: 'row',
-        width: '100%',
-        justifyContent: "space-between",
-        paddingHorizontal: 15
     }
 })
 
