@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     HeaderTitle: {
         color: "black",
         fontSize: 18,
-        fontWeight: "bold",
+        fontFamily: 'open-sans-bold'
     }
 })
 

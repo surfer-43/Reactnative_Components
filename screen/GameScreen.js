@@ -10,6 +10,8 @@ import {
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
 
+import DefaultStyle from '../constants/defaultStyles'
+
 const generateRandomBetween = ( min, max, exclude ) => {
     // normalizing the numbers
     min = Math.ceil(min);
@@ -59,7 +61,7 @@ const GameScreen = (props) => {
 
     return (
         <View style={styles.screen}>
-            <Text>
+            <Text style={DefaultStyle.bodyText}>
                 Oppenent's Guess:
             </Text>
             <NumberContainer>
