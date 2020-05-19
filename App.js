@@ -57,14 +57,13 @@ export default function App() {
     />
   }
 
-  // let displayedScreen = <StartGameScreen startGame={startGameHandler}/>
-  // if( userNum && numRounds <= 0 ) {
-  //   displayedScreen = <GameScreen chosenNum={userNum} gameOver={gameOverHandler}/>;
-  // } else if( numRounds > 0) {
-  //   displayedScreen = <GameOverScreen guessCount={numRounds} userNum={userNum} restart={restartHandler}/>
-  // }
+  let displayedScreen = <StartGameScreen startGame={startGameHandler}/>
+  if( userNum && numRounds <= 0 ) {
+    displayedScreen = <GameScreen chosenNum={userNum} gameOver={gameOverHandler}/>;
+  } else if( numRounds > 0) {
+    displayedScreen = <GameOverScreen guessCount={numRounds} userNum={userNum} restart={restartHandler}/>
+  }
 
-  let displayedScreen = <GameOverScreen guessCount={numRounds} userNum={userNum} restart={restartHandler}/>
 
   return (
     <View style={styles.container}>

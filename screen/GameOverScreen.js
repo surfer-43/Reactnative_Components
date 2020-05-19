@@ -19,17 +19,18 @@ const GameOverScreen = (props) => {
             <Text style={DefaultStyles.title}>Game Over</Text>
             <View style={styles.imageContainer}>
                 <Image
-                // source={require('../assets/original.png')}
-                source={{
-                    uri:
-                    'https://cdn.pixabay.com/photo/2016/05/05/23/52/mountain-summit-1375015_960_720.jpg'
-                }}
+                    source={require('../assets/original.png')}
+                // source={{
+                //     uri:
+                //     'https://cdn.pixabay.com/photo/2016/05/05/23/52/mountain-summit-1375015_960_720.jpg'
+                // }}
                 style={styles.image}
                 resizeMode="cover"
                 />
             </View>
-            <Bodytext>Your number was guessed in: {guessCount}</Bodytext>
-            <Bodytext>Your number was: {userNum}</Bodytext>
+            <View style={styles.resultContainer}>
+                <Bodytext style={styles.resultText}>Your number <Text style={styles.numToGuess}>{userNum}</Text> was guessed in: <Text style={styles.triesToGuess}>{guessCount} guesses</Text></Bodytext>
+            </View>
             <Button title="Restart" color={Colors.primary} onPress={props.restart} />
         </View>
     )
@@ -53,7 +54,24 @@ const styles = StyleSheet.create({
       image: {
         width: '100%',
         height: '100%'
-      }
+      },
+      numToGuess: {
+        fontFamily: 'open-sans-bold',
+        color: Colors.primary,
+        fontSize: 18
+    },
+    resultContainer: {
+        marginHorizontal: 110
+    },
+    resultText: {
+        textAlign: "center"
+    },
+    triesToGuess: {
+        fontFamily: 'open-sans-bold',
+        color: Colors.secondary,
+        fontSize: 18
+    }
+
 })
 
 export default GameOverScreen;
