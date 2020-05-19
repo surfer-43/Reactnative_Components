@@ -36,8 +36,15 @@ const GameScreen = (props) => {
 
     const nextGuessHandler =( direction ) => {
         // validate user input
+        console.log("nextGuess was called: ", direction);
         if( (direction === 'down' && currentGuess < props.chosenNum) || direction === 'up' && currentGuess > props.chosenNum) {
-            Alert.alert('don\'t cheet - you must play fair', [{text: 'Sorry!', style:'cancel'}]);
+            console.log('should have shown the alert...');
+            // Alert.alert('don\'t cheet - you must play fair', [{text: 'Sorry!', style:'cancel'}]);
+            Alert.alert(
+                "You gotta play by the rules...",
+                "please give accurate instructions",
+                [{text: 'Sorry!', style:'cancel'}]
+            )
             return;
         }
 
