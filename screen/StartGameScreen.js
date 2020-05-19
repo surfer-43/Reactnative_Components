@@ -6,7 +6,8 @@ import {
     TouchableWithoutFeedback, 
     Keyboard,
     Alert,
-    StyleSheet 
+    StyleSheet, 
+    ImagePropTypes
 } from 'react-native';
 
 import Card from '../components/Card';
@@ -15,7 +16,7 @@ import NumberContainer from '../components/NumberContainer'
 
 import Colors from '../constants/colors'
 
-const StartGameScreen = () => {
+const StartGameScreen = (props) => {
     const [ userNum, setUserNum ] = useState('');
     const [ confirmed, setConfirmed ] = useState(false);
     const [ selectedNum, setSelectedNum ] = useState();
@@ -55,7 +56,7 @@ const StartGameScreen = () => {
             <Card style={styles.StartedCard}>
                 <Text style={styles.CardTitle}>The number to guess is:</Text>
                 <NumberContainer>{selectedNum}</NumberContainer>
-                <Button title="START GAME" onPress={() => {console.log('start the game was called')}} color={Colors.primary}/>
+                <Button title="START GAME" onPress={() => props.startGame(selectedNum)} color={Colors.primary}/>
             </Card>
         )
     }
