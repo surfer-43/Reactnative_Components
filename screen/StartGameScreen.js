@@ -58,7 +58,7 @@ const StartGameScreen = (props) => {
         confirmedOutput = (
             <Card style={styles.StartedCard}>
                 <Text style={styles.CardTitle}>The number to guess is:</Text>
-                <NumberContainer>{selectedNum}</NumberContainer>
+                <NumberContainer style={styles.confirmedNumContainer}>{selectedNum}</NumberContainer>
                 <MainButton style={styles.restBtn} onPress={() => props.startGame(selectedNum)}>START GAME</MainButton>
                 {/* <Button title="START GAME" onPress={() => props.startGame(selectedNum)} color={Colors.primary}/> */}
             </Card>
@@ -115,14 +115,15 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 20,
-        marginVertical: 20,
+        marginVertical: 10,
         fontFamily: 'open-sans-bold'
     },
     card: {
         width: '80%',
         minWidth: 250,
         maxWidth: '95%',
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 10,
     },
     cardTitle: {
         color: Colors.primary
@@ -145,12 +146,19 @@ const styles = StyleSheet.create({
     },
     restBtn: {
         backgroundColor: Colors.secondary,
+        paddingVertical: 10,
+        marginVertical: 10,
     },
     StartedCard: {
         width: 300,
         maxWidth: '80%',
-        padding:30,
-        alignItems: 'center'
+        padding:20,
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+    confirmedNumContainer: {
+        marginVertical: 10,
+        padding: 10,
     }
 })
 
