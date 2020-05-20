@@ -4,6 +4,7 @@ import {
     Text,
     Alert,
     ScrollView,
+    Dimensions,
     StyleSheet,
 } from 'react-native';
 
@@ -99,12 +100,12 @@ const GameScreen = (props) => {
             <NumberContainer>
                 {currentGuess}
             </NumberContainer>
-            <Card style={styles.buttonContaienr}>
-                <MainButton onPress={nextGuessHandler.bind( this , 'down')}>
+            <Card style={styles.buttonContainer}>
+                <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'down')}>
                     <Ionicons name="ios-arrow-dropdown-circle" size={30} color={Colors.primary} />
                 </MainButton>
                 {/* <Button title='Down' onPress={nextGuessHandler.bind( this , 'down')}/> */}
-                <MainButton onPress={nextGuessHandler.bind( this , 'up')}>
+                <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'up')}>
                     <Ionicons name="ios-arrow-dropup-circle" size={30} color={Colors.primary} />
                 </MainButton>
                 {/* <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} /> */}
@@ -125,12 +126,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%'
     },
-    buttonContaienr: {
+    buttonContainer: {
         flexDirection: 'row',
         justifyContent: 'space-around',
-        marginTop: 20,
+        marginTop: Dimensions.get('window').height > 600 ? 20 : 10,
         width: 300,
         maxWidth: '80%',
+    },
+    directionBtn: {
+        marginVertical: 10,
     },
     listContainer: {
         flex: 1,
@@ -147,7 +151,8 @@ const styles = StyleSheet.create({
         padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        width: '60%'
+        width: Dimensions.get('window').width > 350 ? '60%' : '90%',
+        marginVertical: 10,
     },
 });
 

@@ -1,4 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { 
+    Dimensions,
+    StyleSheet
+} from 'react-native';
 
 export default StyleSheet.create({
     bodyText: {
@@ -6,7 +9,7 @@ export default StyleSheet.create({
         color: 'purple'
     },
     title: {
-        fontSize: 20,
+        fontSize: Dimensions.get('window').width < 400 ? 18 : 32,
         marginVertical: 20,
         fontFamily: 'open-sans-bold'
     }
