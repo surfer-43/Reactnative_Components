@@ -71,7 +71,7 @@ const StartGameScreen = (props) => {
             <View style={styles.screen}>
                 <Text style={styles.title}>Start a new Game!</Text>
                 <Card style={styles.card}>
-                    <Bodytext style={styles.cardTitle}>  Pick a number... any number! </Bodytext>
+                    <Bodytext style={styles.cardTitle}><Text> Pick a number... any number! </Text></Bodytext>
                     <UserInput 
                         style={styles.textInput} 
                         blurOnSubmit

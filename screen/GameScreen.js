@@ -11,10 +11,11 @@ import { Ionicons } from '@expo/vector-icons'
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
-import MainButton from '../components/MainButton'
+import MainButton from '../components/MainButton';
+import BodyText from '../components/BodyText'
 
 import DefaultStyle from '../constants/defaultStyles'
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Colors from '../constants/colors';
 
 const generateRandomBetween = ( min, max, exclude ) => {
     // normalizing the numbers
@@ -27,6 +28,15 @@ const generateRandomBetween = ( min, max, exclude ) => {
     }
 
     return rndNum;
+}
+
+const renderListItem = ( count, guess) => {
+    return (
+        <BodyText key={guess} style={styles.listItem}>
+            <Text style={DefaultStyle.bodyText}>Guess Count: {count}</Text>
+            <Text style={DefaultStyle.bodyText}>{guess}</Text>
+        </BodyText>
+    );
 }
 
 const GameScreen = (props) => {
@@ -99,14 +109,11 @@ const GameScreen = (props) => {
                 </MainButton>
                 {/* <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} /> */}
             </Card>
-            <ScrollView>
-                {guessList.map( guess => (
-                    <View key={guess}>
-                        <Text>{guess}</Text>
-                    </View>
-                    )
-                )}
-            </ScrollView>
+            <View style={styles.listContainer}>
+                <ScrollView contentContainerStyle={styles.list}>
+                    {guessList.map( (guess, index) => renderListItem(guessList.length - index, guess) )}
+                </ScrollView>
+            </View>
         </View>
     )
 }
@@ -115,7 +122,8 @@ const styles = StyleSheet.create({
     screen: {
         flex: 1,
         padding: 10,
-        alignItems: 'center'
+        alignItems: 'center',
+        width: '100%'
     },
     buttonContaienr: {
         flexDirection: 'row',
@@ -123,7 +131,24 @@ const styles = StyleSheet.create({
         marginTop: 20,
         width: 300,
         maxWidth: '80%',
-    }
+    },
+    listContainer: {
+        flex: 1,
+        width: '80%',
+    },
+    list: {
+        flexGrow: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-end',
+    },
+    listItem: {
+        borderColor: 'grey',
+        borderWidth: 2,
+        padding: 10,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '60%'
+    },
 });
 
 export default GameScreen;

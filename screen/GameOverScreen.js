@@ -29,7 +29,12 @@ const GameOverScreen = (props) => {
                 />
             </View>
             <View style={styles.resultContainer}>
-                <Bodytext style={styles.resultText}>Your number <Text style={styles.numToGuess}>{userNum}</Text> was guessed in: <Text style={styles.triesToGuess}>{guessCount} guesses</Text></Bodytext>
+                <Bodytext style={styles.resultText}>
+                    <Text style={DefaultStyles.bodyText}>Your number</Text>
+                    <Text style={{...DefaultStyles.bodyText, ...styles.numToGuess}}>{userNum}</Text>
+                    <Text style={DefaultStyles.bodyText}>was guessed in: </Text>
+                    <Text style={{...DefaultStyles.bodyText, ...styles.triesToGuess}}>{guessCount} guesses</Text>
+                </Bodytext>
             </View>
             <MainButton style={styles.restBtn} onPress={props.restart}>Restart</MainButton>
             {/* <Button title="Restart" color={Colors.primary} onPress={props.restart} /> */}
@@ -65,18 +70,25 @@ const styles = StyleSheet.create({
       numToGuess: {
         fontFamily: 'open-sans-bold',
         color: Colors.primary,
-        fontSize: 18
+        fontSize: 18,
+        marginLeft: 5,
+        marginRight: 5,
     },
     resultContainer: {
         marginHorizontal: 110
     },
     resultText: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'baseline',
         textAlign: "center"
     },
     triesToGuess: {
         fontFamily: 'open-sans-bold',
         color: Colors.secondary,
-        fontSize: 18
+        fontSize: 18,
+        marginLeft: 5,
+        marginRight: 5,
     }
 
 })

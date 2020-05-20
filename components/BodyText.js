@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    View,
     Text,
     StyleSheet
 } from 'react-native';
@@ -12,9 +13,9 @@ const Bodytext = (props) => {
      * like the font to use... 
      */
     return( 
-        <Text style={ { ...props.style, ...styles.body} }>
+        <View style={ {  ...styles.body, ...props.style } }>
             {props.children}
-        </Text>
+        </View>
     )
 }
 
