@@ -2,15 +2,19 @@ import React, { useState, useRef, useEffect } from 'react';
 import {
     View,
     Text,
-    Button,
+    Alert,
+    ScrollView,
     StyleSheet,
-    Alert
 } from 'react-native';
+
+import { Ionicons } from '@expo/vector-icons'
 
 import NumberContainer from '../components/NumberContainer';
 import Card from '../components/Card';
+import MainButton from '../components/MainButton'
 
 import DefaultStyle from '../constants/defaultStyles'
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const generateRandomBetween = ( min, max, exclude ) => {
     // normalizing the numbers
@@ -26,8 +30,12 @@ const generateRandomBetween = ( min, max, exclude ) => {
 }
 
 const GameScreen = (props) => {
-    const [ currentGuess, setCurrentGuess ] = useState( generateRandomBetween(1, 100, props.chosenNum) );
+    const firstGuess =  generateRandomBetween(1, 100, props.chosenNum) 
+    const [ currentGuess, setCurrentGuess ] = useState( 
+        firstGuess
+    );
     const [ guessCount, setGuessCount ] = useState(0);
+    const [ guessList, setGuessList ] =useState([firstGuess]);
 
     const { gameOver, chosenNum } = props;
     
@@ -49,13 +57,20 @@ const GameScreen = (props) => {
         }
 
         if(direction === 'up'){
-            currentLow.current = currentGuess;
+            currentLow.current = currentGuess + 1;
         } else {
             currentHigh.current = currentGuess;
         }
         const nextNum = generateRandomBetween(currentLow.current, currentHigh.current, currentGuess);
         setCurrentGuess(nextNum);
         setGuessCount( guessCount => {
+            /**
+             * get the current state of our guesses and return a new array of 
+             * all the guess that have been made to this point
+             * putting the new guess at the beginning keeps the most current 
+             * order of the list
+             */
+            setGuessList(currentPastGuess => [ nextNum, ...guessList]);
             return guessCount + 1;
         })
     }
@@ -75,9 +90,23 @@ const GameScreen = (props) => {
                 {currentGuess}
             </NumberContainer>
             <Card style={styles.buttonContaienr}>
-                <Button title='Down' onPress={nextGuessHandler.bind( this , 'down')}/>
-                <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} />
+                <MainButton onPress={nextGuessHandler.bind( this , 'down')}>
+                    <Ionicons name="ios-arrow-dropdown-circle" size={30} color={Colors.primary} />
+                </MainButton>
+                {/* <Button title='Down' onPress={nextGuessHandler.bind( this , 'down')}/> */}
+                <MainButton onPress={nextGuessHandler.bind( this , 'up')}>
+                    <Ionicons name="ios-arrow-dropup-circle" size={30} color={Colors.primary} />
+                </MainButton>
+                {/* <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} /> */}
             </Card>
+            <ScrollView>
+                {guessList.map( guess => (
+                    <View key={guess}>
+                        <Text>{guess}</Text>
+                    </View>
+                    )
+                )}
+            </ScrollView>
         </View>
     )
 }
