@@ -26,7 +26,7 @@ const fetchFonts = () => {
 }
 
 export default function App() {
-  const [ userNum, setUserNum ] = useState(4);
+  const [ userNum, setUserNum ] = useState();
   const [ numRounds, setNumRounds ] = useState(0);
   const [ fontsLoaded, setFontsLoaded ] = useState(false);
 
@@ -63,7 +63,6 @@ export default function App() {
   } else if( numRounds > 0) {
     displayedScreen = <GameOverScreen guessCount={numRounds} userNum={userNum} restart={restartHandler}/>
   }
-
 
   return (
     <View style={styles.container}>
