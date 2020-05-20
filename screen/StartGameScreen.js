@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 10,
         alignItems: 'center',
+        width: '100%'
     },
     title: {
         fontSize: 20,
@@ -117,8 +118,9 @@ const styles = StyleSheet.create({
         fontFamily: 'open-sans-bold'
     },
     card: {
-        width: 250,
-        maxWidth: '80%',
+        width: '80%',
+        minWidth: 250,
+        maxWidth: '95%',
         alignItems: 'center'
     },
     cardTitle: {
@@ -131,6 +133,8 @@ const styles = StyleSheet.create({
         borderColor: '#aa33dd'
     },
     buttonContainer: {
+        borderWidth: 1,
+        borderColor: 'salmon',
         flexDirection: 'row',
         width: '100%',
         justifyContent: "space-between",
@@ -140,7 +144,7 @@ const styles = StyleSheet.create({
         width: 85,
         maxWidth: '50%',
         color: 'white',
-        justifyContent:'space-between',
+        // justifyContent:'space-between',
     },
     restBtn: {
         backgroundColor: Colors.secondary,
