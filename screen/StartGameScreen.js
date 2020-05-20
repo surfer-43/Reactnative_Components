@@ -10,6 +10,7 @@ import {
     ImagePropTypes
 } from 'react-native';
 
+import MainButton from '../components/MainButton';
 import Card from '../components/Card';
 import UserInput from '../components/UserInput';
 import NumberContainer from '../components/NumberContainer';
@@ -57,7 +58,8 @@ const StartGameScreen = (props) => {
             <Card style={styles.StartedCard}>
                 <Text style={styles.CardTitle}>The number to guess is:</Text>
                 <NumberContainer>{selectedNum}</NumberContainer>
-                <Button title="START GAME" onPress={() => props.startGame(selectedNum)} color={Colors.primary}/>
+                <MainButton style={styles.restBtn} onPress={() => props.startGame(selectedNum)}>START GAME</MainButton>
+                {/* <Button title="START GAME" onPress={() => props.startGame(selectedNum)} color={Colors.primary}/> */}
             </Card>
         )
     }
@@ -139,6 +141,9 @@ const styles = StyleSheet.create({
         maxWidth: '50%',
         color: 'white',
         justifyContent:'space-between',
+    },
+    restBtn: {
+        backgroundColor: Colors.secondary,
     },
     StartedCard: {
         width: 300,

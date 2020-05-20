@@ -7,7 +7,8 @@ import {
     StyleSheet
 } from 'react-native';
 
-import Bodytext from '../components/BodyText'
+import Bodytext from '../components/BodyText';
+import MainButton from '../components/MainButton';
 
 import Colors from '../constants/colors';
 import DefaultStyles from '../constants/defaultStyles'
@@ -31,7 +32,8 @@ const GameOverScreen = (props) => {
             <View style={styles.resultContainer}>
                 <Bodytext style={styles.resultText}>Your number <Text style={styles.numToGuess}>{userNum}</Text> was guessed in: <Text style={styles.triesToGuess}>{guessCount} guesses</Text></Bodytext>
             </View>
-            <Button title="Restart" color={Colors.primary} onPress={props.restart} />
+            <MainButton style={styles.restBtn} onPress={props.restart}>Restart</MainButton>
+            {/* <Button title="Restart" color={Colors.primary} onPress={props.restart} /> */}
         </View>
     )
 }
@@ -41,6 +43,12 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    restBtn: {
+        backgroundColor: Colors.secondary,
+        borderColor: Colors.primary,
+        borderRadius: 25,
+        borderWidth: 2
     },
     imageContainer: {
         width: 300,
