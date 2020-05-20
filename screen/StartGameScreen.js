@@ -7,7 +7,7 @@ import {
     Keyboard,
     Alert,
     StyleSheet, 
-    ImagePropTypes
+    Dimensions
 } from 'react-native';
 
 import MainButton from '../components/MainButton';
@@ -19,6 +19,7 @@ import Bodytext from '../components/BodyText'
 import Colors from '../constants/colors';
 
 const StartGameScreen = (props) => {
+    console.log('width being set to the buttons: ', Dimensions.get('window').width / 2);
     const [ userNum, setUserNum ] = useState('');
     const [ confirmed, setConfirmed ] = useState(false);
     const [ selectedNum, setSelectedNum ] = useState();
@@ -133,18 +134,14 @@ const styles = StyleSheet.create({
         borderColor: '#aa33dd'
     },
     buttonContainer: {
-        borderWidth: 1,
-        borderColor: 'salmon',
         flexDirection: 'row',
         width: '100%',
         justifyContent: "space-between",
         paddingHorizontal: 15
     },
     buttonWrapper: {
-        width: 85,
-        maxWidth: '50%',
+        width: Dimensions.get('window').width / 4,
         color: 'white',
-        // justifyContent:'space-between',
     },
     restBtn: {
         backgroundColor: Colors.secondary,
