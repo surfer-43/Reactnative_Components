@@ -42,20 +42,25 @@ const renderListItem = ( count, guess) => {
 
 const GameScreen = (props) => {
     const firstGuess =  generateRandomBetween(1, 100, props.chosenNum) 
-    const [ currentGuess, setCurrentGuess ] = useState( 
-        firstGuess
-    );
+    const [ currentGuess, setCurrentGuess ] = useState( firstGuess );
     const [ guessCount, setGuessCount ] = useState(0);
-    const [ guessList, setGuessList ] =useState([firstGuess]);
+    const [ guessList, setGuessList ] = useState([firstGuess]);
+    const [ orientationIsPortrait, setOrientationIsPortrait] = useState(
+        Dimensions.get('window').width < Dimensions.get('window').height
+    );
+
+    console.log("the state of orientationIsPortrait: ", orientationIsPortrait);
 
     const { gameOver, chosenNum } = props;
     
     const currentLow = useRef(1);
     const currentHigh = useRef(100);
 
+    let gameControls = null;
+
+
     const nextGuessHandler =( direction ) => {
         // validate user input
-        console.log("nextGuess was called: ", direction);
         if( (direction === 'down' && currentGuess < props.chosenNum) || direction === 'up' && currentGuess > props.chosenNum) {
             console.log('should have shown the alert...');
             // Alert.alert('don\'t cheet - you must play fair', [{text: 'Sorry!', style:'cancel'}]);
@@ -92,24 +97,66 @@ const GameScreen = (props) => {
         }
     }, [guessCount, gameOver, chosenNum])
 
+    useEffect(() => {
+        const changeLayout = () => {
+            setOrientationIsPortrait( (currentOrientation) => !orientationIsPortrait )
+        }        
+
+        Dimensions.addEventListener('change', changeLayout)
+        return () => {
+            Dimensions.removeEventListener('change', changeLayout);
+        }
+    })
+
+    if( !orientationIsPortrait ) {
+        gameControls = (
+                <Card style={styles.horizontalGameContainer}>
+                    <View style={styles.horizontalTitleContainer}>
+                        <Text style={{... styles.HorizontalTitle, ...DefaultStyle.bodyText}}>
+                            Oppenent's Guess:
+                        </Text>
+                    </View>
+                    <View style={styles.gameLayoutContainer}>
+                        <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'down')}>
+                            <Ionicons name="ios-arrow-dropdown-circle" size={30} color={Colors.primary} />
+                        </MainButton>
+                        {/* <Button title='Down' onPress={nextGuessHandler.bind( this , 'down')}/> */}
+                        <NumberContainer style={styles.horizontalGuessContainer}>
+                            {currentGuess}
+                        </NumberContainer>
+                        <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'up')}>
+                            <Ionicons name="ios-arrow-dropup-circle" size={30} color={Colors.primary} />
+                        </MainButton>
+                        {/* <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} /> */}
+                    </View>
+                </Card>
+        )
+    } else {
+        gameControls = (
+            <View style={styles.protratiGameContainer}>
+                <Text style={DefaultStyle.bodyText}>
+                    Oppenent's Guess:
+                </Text>
+                <NumberContainer>
+                    {currentGuess}
+                </NumberContainer>
+                <Card style={styles.buttonContainerVertical}>
+                    <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'down')}>
+                        <Ionicons name="ios-arrow-dropdown-circle" size={30} color={Colors.primary} />
+                    </MainButton>
+                    {/* <Button title='Down' onPress={nextGuessHandler.bind( this , 'down')}/> */}
+                    <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'up')}>
+                        <Ionicons name="ios-arrow-dropup-circle" size={30} color={Colors.primary} />
+                    </MainButton>
+                    {/* <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} /> */}
+                </Card>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.screen}>
-            <Text style={DefaultStyle.bodyText}>
-                Oppenent's Guess:
-            </Text>
-            <NumberContainer>
-                {currentGuess}
-            </NumberContainer>
-            <Card style={styles.buttonContainer}>
-                <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'down')}>
-                    <Ionicons name="ios-arrow-dropdown-circle" size={30} color={Colors.primary} />
-                </MainButton>
-                {/* <Button title='Down' onPress={nextGuessHandler.bind( this , 'down')}/> */}
-                <MainButton style={styles.directionBtn} onPress={nextGuessHandler.bind( this , 'up')}>
-                    <Ionicons name="ios-arrow-dropup-circle" size={30} color={Colors.primary} />
-                </MainButton>
-                {/* <Button title='Up' onPress={nextGuessHandler.bind( this , 'up')} /> */}
-            </Card>
+            {gameControls}
             <View style={styles.listContainer}>
                 <ScrollView contentContainerStyle={styles.list}>
                     {guessList.map( (guess, index) => renderListItem(guessList.length - index, guess) )}
@@ -126,12 +173,38 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '100%'
     },
-    buttonContainer: {
+    protratiGameContainer: {
+        flex: 1,
+        padding: 10,
+        alignItems: 'center',
+        width: '100%'
+    },
+    buttonContainerVertical: {
         flexDirection: 'row',
         justifyContent: 'space-around',
         marginTop: Dimensions.get('window').height > 600 ? 20 : 10,
         width: 300,
         maxWidth: '80%',
+    },
+    horizontalGameContainer: {
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginTop: Dimensions.get('window').height > 600 ? 20 : 10,
+        width: 300,
+        maxWidth: '80%',
+    },
+    horizontalTitleContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
+    gameLayoutContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    horizontalGuessContainer: {
+        marginVertical: 0,
+        padding: 10,
     },
     directionBtn: {
         marginVertical: 10,
