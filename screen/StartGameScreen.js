@@ -170,7 +170,9 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width / 4,
         color: 'white',
         borderColor: 'red',
-        borderWidth: 1, 
+        borderWidth: 1,
+        borderRadius: 30, 
+        overflow: 'hidden',
     },
     restBtn: {
         backgroundColor: Colors.secondary,
