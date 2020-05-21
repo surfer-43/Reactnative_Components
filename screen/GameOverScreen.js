@@ -20,34 +20,34 @@ const GameOverScreen = (props) => {
     const imageSize = Dimensions.get('window').width >350 ? styles.bigImage : styles.smallImage;
 
     return (
-        <View style={styles.container}>
-            <ScrollView>
-                <View style={styles.screen}>
-                    <Text style={{...styles.title, ...DefaultStyles.title}}>Game Over</Text>
-                    <View style={imageSize}>
-                        <Image
-                            source={require('../assets/original.png')}
-                        // source={{
-                        //     uri:
-                        //     'https://cdn.pixabay.com/photo/2016/05/05/23/52/mountain-summit-1375015_960_720.jpg'
-                        // }}
-                        style={styles.image}
-                        resizeMode="cover"
-                        />
+            <View style={styles.container}>
+                <ScrollView>
+                    <View style={styles.screen}>
+                        <Text style={{...styles.title, ...DefaultStyles.title}}>Game Over</Text>
+                        <View style={imageSize}>
+                            <Image
+                                source={require('../assets/original.png')}
+                            // source={{
+                            //     uri:
+                            //     'https://cdn.pixabay.com/photo/2016/05/05/23/52/mountain-summit-1375015_960_720.jpg'
+                            // }}
+                            style={styles.image}
+                            resizeMode="cover"
+                            />
+                        </View>
+                        <View style={styles.resultContainer}>
+                            <Bodytext style={styles.resultText}>
+                                <Text style={DefaultStyles.bodyText}>Your number</Text>
+                                <Text style={{...DefaultStyles.bodyText, ...styles.numToGuess}}>{userNum}</Text>
+                                <Text style={DefaultStyles.bodyText}>was guessed in: </Text>
+                                <Text style={{...DefaultStyles.bodyText, ...styles.triesToGuess}}>{guessCount} guesses</Text>
+                            </Bodytext>
+                        </View>
+                        <MainButton style={styles.restBtn} onPress={props.restart}>Restart</MainButton>
+                        {/* <Button title="Restart" color={Colors.primary} onPress={props.restart} /> */}
                     </View>
-                    <View style={styles.resultContainer}>
-                        <Bodytext style={styles.resultText}>
-                            <Text style={DefaultStyles.bodyText}>Your number</Text>
-                            <Text style={{...DefaultStyles.bodyText, ...styles.numToGuess}}>{userNum}</Text>
-                            <Text style={DefaultStyles.bodyText}>was guessed in: </Text>
-                            <Text style={{...DefaultStyles.bodyText, ...styles.triesToGuess}}>{guessCount} guesses</Text>
-                        </Bodytext>
-                    </View>
-                    <MainButton style={styles.restBtn} onPress={props.restart}>Restart</MainButton>
-                    {/* <Button title="Restart" color={Colors.primary} onPress={props.restart} /> */}
-                </View>
-            </ScrollView>
-        </View>
+                </ScrollView>
+            </View>
     )
 }
 
