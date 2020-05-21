@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     View, 
     Text, 
@@ -6,8 +6,10 @@ import {
     TouchableWithoutFeedback, 
     Keyboard,
     Alert,
+    Dimensions,
+    ScrollView,
+    KeyboardAvoidingView,
     StyleSheet, 
-    Dimensions
 } from 'react-native';
 
 import MainButton from '../components/MainButton';
@@ -23,6 +25,26 @@ const StartGameScreen = (props) => {
     const [ userNum, setUserNum ] = useState('');
     const [ confirmed, setConfirmed ] = useState(false);
     const [ selectedNum, setSelectedNum ] = useState();
+
+    // managing some style specific attributes with state of orientation
+    const [ buttonWidth, setButtonWidth ] = useState(Dimensions.get('window').width / 4)
+
+    /**
+     * useEffect in this case is a way to manage eventlisteners
+     * so that there is only one being used no matter howmany times 
+     * the screen is rotated.
+     * useEffect runs just before the rerender cycle
+     * with no dependancies declared, this useEffect will run every time
+     */
+    useEffect(() => {
+        const updateLayout = () => {
+            setButtonWidth(Dimensions.get('window').width / 4)
+        }
+        Dimensions.addEventListener('change', updateLayout);
+        return () => {
+            Dimensions.removeEventListener('change', updateLayout);
+        }
+    }); 
 
     const onChangedTextHandler = (inputText) => {
         setUserNum(inputText.replace(/[^0-9]/g, ''))
@@ -66,43 +88,47 @@ const StartGameScreen = (props) => {
     }
 
     return(
-        <TouchableWithoutFeedback onPress={() => {
-            Keyboard.dismiss()
-        }}>
-            <View style={styles.screen}>
-                <Text style={styles.title}>Start a new Game!</Text>
-                <Card style={styles.card}>
-                    <Bodytext style={styles.cardTitle}><Text> Pick a number... any number! </Text></Bodytext>
-                    <UserInput 
-                        style={styles.textInput} 
-                        blurOnSubmit
-                        autoCapitalize='none'
-                        autoCorrect={false}
-                        keyboardType='number-pad'
-                        maxLength={2}
-                        onChangeText={onChangedTextHandler}
-                        value={userNum}
-                    />
-                    <View style={styles.buttonContainer}>
-                        <View style={styles.buttonWrapper}>
-                            <Button 
-                                title='Reset' 
-                                color={Colors.secondary} 
-                                onPress={resetUserNumHandler}
+        <ScrollView>
+            <KeyboardAvoidingView behavior='position' keyboardVerticalOffset={5}>
+                <TouchableWithoutFeedback onPress={() => {
+                    Keyboard.dismiss()
+                }}>
+                    <View style={styles.screen}>
+                        <Text style={styles.title}>Start a new Game!</Text>
+                        <Card style={styles.card}>
+                            <Bodytext style={styles.cardTitle}><Text> Pick a number... any number! </Text></Bodytext>
+                            <UserInput 
+                                style={styles.textInput} 
+                                blurOnSubmit
+                                autoCapitalize='none'
+                                autoCorrect={false}
+                                keyboardType='number-pad'
+                                maxLength={2}
+                                onChangeText={onChangedTextHandler}
+                                value={userNum}
                             />
-                        </View>
-                        <View style={styles.buttonWrapper}>
-                            <Button 
-                                title='Confirm' 
-                                color={Colors.primary} 
-                                onPress={setConfirmedHandler}
-                            />
-                        </View>
-                    </View> 
-                </Card>
-                { confirmedOutput }
-            </View>
-        </TouchableWithoutFeedback>
+                            <View style={styles.buttonContainer}>
+                                <View style={{...styles.buttonWrapper, width: buttonWidth}}>
+                                    <Button 
+                                        title='Reset' 
+                                        color={Colors.secondary} 
+                                        onPress={resetUserNumHandler}
+                                    />
+                                </View>
+                                <View style={{...styles.buttonWrapper, width: buttonWidth}}>
+                                    <Button 
+                                        title='Confirm' 
+                                        color={Colors.primary} 
+                                        onPress={setConfirmedHandler}
+                                    />
+                                </View>
+                            </View> 
+                        </Card>
+                        { confirmedOutput }
+                    </View>
+                </TouchableWithoutFeedback>
+            </KeyboardAvoidingView>
+        </ScrollView>
     )
 }
 
@@ -143,6 +169,8 @@ const styles = StyleSheet.create({
     buttonWrapper: {
         width: Dimensions.get('window').width / 4,
         color: 'white',
+        borderColor: 'red',
+        borderWidth: 1, 
     },
     restBtn: {
         backgroundColor: Colors.secondary,
