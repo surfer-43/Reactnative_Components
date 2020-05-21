@@ -8,7 +8,6 @@ import {
 import Colors from '../constants/colors'
 
 const MainButton = (props) => {
-    console.log("what are the props: ", props.children)
     return (
         <TouchableOpacity onPress={props.onPress}>
             <View style={{...styles.mainButton, ...props.style}}>
