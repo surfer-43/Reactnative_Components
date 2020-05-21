@@ -10,7 +10,6 @@ export default StyleSheet.create({
     },
     title: {
         fontSize: Dimensions.get('window').width < 400 ? 18 : 32,
-        marginVertical: 20,
         fontFamily: 'open-sans-bold'
     }
 })
