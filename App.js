@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import {
+  View ,
+  SafeAreaView, 
+  StyleSheet, 
+} from 'react-native';
 
 /**
  * special component from expo to take care of loading assests that should
@@ -65,10 +69,10 @@ export default function App() {
   }
 
   return (
-    <View style={styles.container}>
-      <Header title='Guess A Number'/>
-      {displayedScreen}
-    </View>
+    <SafeAreaView style={styles.container}>
+        <Header title='Guess A Number'/>
+        {displayedScreen}
+    </SafeAreaView>
   );
 }
 
